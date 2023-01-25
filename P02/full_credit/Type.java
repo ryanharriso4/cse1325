@@ -1,0 +1,1 @@
+public enum Type{Capybara, Tanuki, Raccoon, Bear};
