@@ -1,4 +1,4 @@
-public class Question{
+ public class Question{
 	private String question; 
 	private String [] answers; 
 	private int rightAnswer;
@@ -12,13 +12,19 @@ public class Question{
 		questionNumber = nextQuestionNumber++; 
 		if((rightAnswer < 1) || (rightAnswer > answers.length))
 		{
-			throw new IllegalArgumentException("The Number of correct answers chosen is wrong. Correct answers must be in between 1 and " + answers.length + "(The number of answers entered)"); 
+			throw new IllegalArgumentException("The Number of correct answers chosen is wrong. Correct answers must be in between 1 and " + answers.length + "."); 
+		}
+		else 
+		{
+			this.rightAnswer = rightAnswer; 
 		}
 	}
 
 	public boolean checkAnswer(int answer)
-	{
-
+	{ 
+		if(rightAnswer == answer)
+			return true; 
+		return false; 
 	}
 
 	@Override
@@ -27,7 +33,7 @@ public class Question{
 		String output = questionNumber + ". " + question + "\n\t"; 
 		for(int i = 0; i < answers.length; i++)
 		{
-			output += i + 1 ")  " + answers[i] + "\n\t";
+			output += (i + 1) +  ")  " + answers[i] + "\n\t";
 		}
 		return output; 
 	}
