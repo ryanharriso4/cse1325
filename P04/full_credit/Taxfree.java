@@ -7,6 +7,6 @@ public class TaxFree{
 	@Override
 	public double price()
 	{
-
+		return cost; 
 	}
 }

@@ -1,5 +1,5 @@
 public class taxed{
-	private static double tax = 0; 
+	private static double tax = 0.0; 
 	public Taxed(String name, double cost)
 	{
 		super(name, cost); 
@@ -7,12 +7,12 @@ public class taxed{
 
 	public static double setTaxRate(double salesTax)
 	{
-
+		tax = salesTax; 
 	}
 
 	@Override
 	public double price()
 	{
-
+		return cost * (1+tax); 
 	}
 }

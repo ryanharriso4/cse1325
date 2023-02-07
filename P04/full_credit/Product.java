@@ -4,7 +4,9 @@ public abstract class Product{
 
 	public Product(String name, double cost)
 	{
-		this.name = name; 
+		this.name = name;
+		if(cost < 0)
+			throw new RunTimeException(); 
 		this.cost = cost; 
 	}
 
@@ -16,6 +18,6 @@ public abstract class Product{
 	@Override
 	public String toString()
 	{
-
+		System.out.printf("%s($%.2f)$%.2f", name, cost, price()); 
 	}
 }
