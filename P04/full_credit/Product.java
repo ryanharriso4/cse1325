@@ -16,6 +16,16 @@ public abstract class Product{
 	@Override
 	public String toString()
 	{
-		return String.format("%s($%.2f)\t\t\t\t$  %.2f\n", name, cost, price()); 
+		int spaces = 30 - name.length(); 
+		//return String.format("%s($%.2f)%s$  %.2f\n", name, cost, " ", price()); 
+		StringBuilder sb = new StringBuilder(); 
+		sb.append(name); 
+		sb.append(String.format("($%.2f)",cost)); 
+		for(int i = 0; i < spaces; i++)
+		{
+			sb.append(" "); 
+		}
+		sb.append(String.format("$  %.2f", price())); 
+		return sb.toString(); 
 	}
 }

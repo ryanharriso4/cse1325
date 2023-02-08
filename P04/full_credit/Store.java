@@ -39,7 +39,7 @@ public class Store{
 				for(int i = 0; i < shoppingCart.size(); i++) 
 				{
 					basketSum += shoppingCart.get(i).price(); 
-					System.out.print(shoppingCart.get(i)); 
+					System.out.println(shoppingCart.get(i)); 
 				}
 				if(shoppingCart.size() == 0)
 					System.out.println("You have nothing in your shopping cart"); 
