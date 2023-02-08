@@ -6,14 +6,12 @@ public abstract class Product{
 	{
 		this.name = name;
 		if(cost < 0)
-			throw new RunTimeException(); 
+			throw new RuntimeException(); 
 		this.cost = cost; 
 	}
 
-	public abstract double price()
-	{
-
-	}
+	public abstract double price();
+	
 
 	@Override
 	public String toString()

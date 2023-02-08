@@ -1,11 +1,11 @@
-public class taxed{
+public class Taxed extends Product{
 	private static double tax = 0.0; 
 	public Taxed(String name, double cost)
 	{
 		super(name, cost); 
 	}
 
-	public static double setTaxRate(double salesTax)
+	public static void setTaxRate(double salesTax)
 	{
 		tax = salesTax; 
 	}
