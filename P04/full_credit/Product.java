@@ -18,6 +18,6 @@ public abstract class Product{
 	@Override
 	public String toString()
 	{
-		System.out.printf("%s($%.2f)$%.2f", name, cost, price()); 
+		return String.format("%s($%.2f)\t\t\t\t$  %.2f\n", name, cost, price()); 
 	}
 }
