@@ -13,6 +13,15 @@ public class Customer{
 	}
 
 
+	public boolean equals(Object o)
+	{
+		if(o == this) return true; 
+		if(!(o instanceof Customer)) return false;
+		Customer c = (Customer)o; 
+		return (name.equals(c.name)) && (email.equals(c.email)); 
+	}
+
+
 	@Override
 	public String toString()
 	{
