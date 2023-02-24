@@ -7,14 +7,14 @@ public class Option{
 		this.name = name; 
 		if(cost < 0)
 		{
-			throw new IllegalArgumentException("The component " + name " has an invalid cost\n"); 
+			throw new IllegalArgumentException("The component " + name + " has an invalid cost\n"); 
 		}
 		this.cost = cost; 
 	}
 
 	public long cost()
 	{
-
+		return cost; 
 	}
 
 	public boolean equals(Object o)
@@ -22,7 +22,7 @@ public class Option{
 		if(o == this) return true; 
 		if(!(o instanceof Option)) return false;
 		Option c = (Option)o; 
-		return (name.equals(c.name)) && (cost.equals(c.cost));
+		return (name.equals(c.name)) && (cost == c.cost);
 	}
 
 	@Override
