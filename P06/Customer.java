@@ -12,7 +12,7 @@ public class Customer{
 		this.email = email; 
 	}
 
-
+	@Override
 	public boolean equals(Object o)
 	{
 		if(o == this) return true; 

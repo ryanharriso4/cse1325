@@ -24,7 +24,7 @@ public class Computer{
 		return sum;
 
 	}
-
+	@Override
 	public boolean equals(Object o)
 	{
 		if(o == this) return true; 
