@@ -1,4 +1,6 @@
+package store;
 import java.util.ArrayList; 
+
 
 public class Order{
 	private static long nextOrderNumber = 0; 

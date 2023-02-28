@@ -1,3 +1,6 @@
+package store;
+
+
 public class Option{
 	protected String name; 
 	protected long cost;
