@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.JFrame;           // for main window
 import javax.swing.JOptionPane;      // for standard dialogs
 // import javax.swing.JDialog;          // for custom dialogs (for alternate About dialog)
@@ -38,14 +39,31 @@ public class MainWin extends JFrame {
 
         JMenuBar menubar = new JMenuBar();
         
-        JMenu     file       = new JMenu("File");
+        /*JMenu     file       = new JMenu("File");
+        JMenu     insert     = new Jmenu("Insert"); 
         JMenuItem anew       = new JMenuItem("New Game");
         JMenuItem quit       = new JMenuItem("Quit");
         JMenu     help       = new JMenu("Help");
         JMenuItem rules      = new JMenuItem("Rules");
-        JMenuItem about      = new JMenuItem("About");
+        JMenuItem about      = new JMenuItem("About");*/
+
+        JMenu     file = new JMenu("File"); 
+        JMenuItem quit = new JMenuItem("Quit"); 
+
+        JMenu     insert   = new JMenu("Insert"); 
+        JMenuItem customer = new JMenuItem("Customer"); 
+        JMenuItem option   = new JMenuItem("Option"); 
+        JMenuItem computer = new JMenuItem("Computer");
+
+        JMenu     view      = new JMenu("View"); 
+        JMenuItem customers = new JMenuItem("Customers"); 
+        JMenuItem options   = new JMenuItem("Options"); 
+        JMenuItem computers = new JMenuItem("Computers");
+
+        JMenu     help  = new JMenu("Help"); 
+        JMenuItem about = new JMenuItem("About");  
         
-        anew .addActionListener(event -> onNewGameClick());
+        /*anew .addActionListener(event -> onNewGameClick());
         quit .addActionListener(event -> onQuitClick());
         rules.addActionListener(event -> onRulesClick());
         about.addActionListener(event -> onAboutClick());
@@ -58,7 +76,23 @@ public class MainWin extends JFrame {
         
         menubar.add(file);
         menubar.add(help);
-        setJMenuBar(menubar);
+        setJMenuBar(menubar);*/
+
+        quit.addActionListener(event -> onQuitClick()); 
+        customer.addActionListener(event -> onInsertCustomerClick()); 
+        option.addActionListener(event -> onInsertOptionClick()); 
+        computer.addActionListener(event -> onInsertComputerClick()); 
+
+        customers.addActionListener(event -> onViewClick(Record.CUSTOMER)); 
+        options.addActionListener(event -> onViewClick(Record.OPTION)); 
+        computers.addActionListener(event -> onViewClick(Record.COMPUTER)); 
+
+        help.addActionListener(event -> onAboutClick()); 
+
+
+
+
+
         
         // ///////////// //////////////////////////////////////////////////////////
         // T O O L B A R
