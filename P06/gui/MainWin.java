@@ -29,6 +29,8 @@ import java.awt.Color;               // the color of widgets, text, or borders
 import java.awt.Font;                // rich text in a JLabel or similar widget
 import java.awt.image.BufferedImage; // holds an image loaded from a file
 
+import javax.swing.JTextField; 
+
 public class MainWin extends JFrame {
     public MainWin(String title) {
         super(title);
@@ -172,7 +174,19 @@ public class MainWin extends JFrame {
     
     
     protected void onInsertCustomerClick(){
+        JLabel nameLabel = new JLabel("<HTML><br/> Customer Name</HTML>"); 
+        JTextField userName = new JTextField(20); 
+        JLabel emailLabel = new JLabel("<HTML><br/> Customer Email</HTML>"); 
+        JTextField userEmail = new JTextField(20);
+
+        Object[] objects = {nameLabel, userName, emailLabel, userEmail}; 
+        int button = JOptionPane.showConfirmDialog(this, 
+        objects, 
+        "Customer Prompt", 
+        JOptionPane.OK_CANCEL_OPTION, 
+        JOptionPane.PLAIN_MESSAGE); 
         
+         
     }
     
     protected void onInsertOptionClick(){
