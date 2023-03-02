@@ -202,7 +202,30 @@ public class MainWin extends JFrame {
     }
     
     protected void onInsertOptionClick(){
-        
+        JLabel name = new JLabel("<HTML><br/> Component </HTML>"); 
+        JTextField componentName = new JTextField(20); 
+        JLabel price = new JLabel("<HTML><br/> Price </HTML>"); 
+        JTextField inPrice = new JTextField(20);
+
+        Object[] objects = {name, componentName, price, inPrice}; 
+
+        int button = JOptionPane.showConfirmDialog(this, 
+        objects, 
+        "Customer Prompt", 
+        JOptionPane.OK_CANCEL_OPTION, 
+        JOptionPane.PLAIN_MESSAGE); 
+
+        long fixedPrice = (long)(Double.parseDouble(inPrice.getText()) * 100); 
+
+        System.out.println(fixedPrice); 
+        try{
+          store.add(new Option(componentName.getText(), fixedPrice)); 
+        }catch(IllegalArgumentException e){
+            if(!(button == JOptionPane.CANCEL_OPTION))
+              JOptionPane.showMessageDialog(
+                this,
+                "The price that was entered is invalid.");
+        }
     }
 
     protected void onInsertComputerClick(){
