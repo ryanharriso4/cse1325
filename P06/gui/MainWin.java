@@ -1,4 +1,6 @@
 package gui;
+
+import store.*; 
 import javax.swing.JFrame;           // for main window
 import javax.swing.JOptionPane;      // for standard dialogs
 // import javax.swing.JDialog;          // for custom dialogs (for alternate About dialog)
@@ -57,20 +59,6 @@ public class MainWin extends JFrame {
         JMenu     help  = new JMenu("Help"); 
         JMenuItem about = new JMenuItem("About");  
         
-        /*anew .addActionListener(event -> onNewGameClick());
-        quit .addActionListener(event -> onQuitClick());
-        rules.addActionListener(event -> onRulesClick());
-        about.addActionListener(event -> onAboutClick());
-
-        
-        file.add(anew);
-        file.add(quit);
-        help.add(rules);
-        help.add(about);
-        
-        menubar.add(file);
-        menubar.add(help);
-        setJMenuBar(menubar);*/
 
         quit.addActionListener(event -> onQuitClick()); 
         customer.addActionListener(event -> onInsertCustomerClick()); 
@@ -184,7 +172,7 @@ public class MainWin extends JFrame {
     
     
     protected void onInsertCustomerClick(){
-
+        
     }
     
     protected void onInsertOptionClick(){
@@ -238,7 +226,7 @@ public class MainWin extends JFrame {
  
    
     
-    //private Store store;
+    private Store store;
     
     private JLabel display;                  
     private JLabel msg;                     
