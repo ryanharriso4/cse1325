@@ -174,18 +174,30 @@ public class MainWin extends JFrame {
     
     
     protected void onInsertCustomerClick(){
+        
         JLabel nameLabel = new JLabel("<HTML><br/> Customer Name</HTML>"); 
         JTextField userName = new JTextField(20); 
         JLabel emailLabel = new JLabel("<HTML><br/> Customer Email</HTML>"); 
         JTextField userEmail = new JTextField(20);
 
         Object[] objects = {nameLabel, userName, emailLabel, userEmail}; 
+
         int button = JOptionPane.showConfirmDialog(this, 
         objects, 
         "Customer Prompt", 
         JOptionPane.OK_CANCEL_OPTION, 
         JOptionPane.PLAIN_MESSAGE); 
-        
+
+        try{
+          store.add(new Customer(userName.getText(), userEmail.getText())); 
+        }catch(IllegalArgumentException e){
+            if(!(button == JOptionPane.CANCEL_OPTION))
+              JOptionPane.showMessageDialog(
+                this,
+                "The email that was entered is invalid.");
+        }
+
+              
          
     }
     
@@ -240,7 +252,7 @@ public class MainWin extends JFrame {
  
    
     
-    private Store store;
+    private Store store = new Store("ELSA Store"); 
     
     private JLabel display;                  
     private JLabel msg;                     
