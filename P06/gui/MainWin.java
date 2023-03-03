@@ -263,19 +263,29 @@ public class MainWin extends JFrame {
         if(record == Record.COMPUTER)
         {
           values = store.computers(); 
-          String s = "<HTML><p><font size = +2> Computers </font></HTML></br>";
-          header.setText(s); 
+          StringBuilder s = new StringBuilder("<HTML><p><font size = +2> Computers </font</br></br><ol>");
+          for(Object o: values)
+            s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
+          s.append("</ol></HTML>"); 
+          header.setText(s.toString()); 
         }
         else if(record == Record.CUSTOMER)
         {
           values = store.customers(); 
-          String s = "<HTML><p><font size = +2> Customers </font></HTML></br>";
-          header.setText(s);        } 
+          StringBuilder s = new StringBuilder("<HTML><p><font size = +2> Customers </font</br></br><ol>");
+          for(Object o: values)
+            s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
+          s.append("</ol></HTML>"); 
+          header.setText(s.toString());       
+        } 
         else 
         {
           values = store.options(); 
-          String s = "<HTML><p><font size = +2> Options </font></HTML></br>"; 
-          header.setText(s);
+          StringBuilder s = new StringBuilder("<HTML><p><font size = +2> Options </font</br></br><ol>");
+          for(Object o: values)
+            s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
+          s.append("</ol></HTML>"); 
+          header.setText(s.toString());
         }
 
         add(header, BorderLayout.PAGE_START); 
