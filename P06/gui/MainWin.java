@@ -30,6 +30,7 @@ import java.awt.Font;                // rich text in a JLabel or similar widget
 import java.awt.image.BufferedImage; // holds an image loaded from a file
 
 import javax.swing.JTextField; 
+import javax.swing.JComboBox; 
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -217,7 +218,6 @@ public class MainWin extends JFrame {
 
         long fixedPrice = (long)(Double.parseDouble(inPrice.getText()) * 100); 
 
-        System.out.println(fixedPrice); 
         try{
           store.add(new Option(componentName.getText(), fixedPrice)); 
         }catch(IllegalArgumentException e){
@@ -229,7 +229,23 @@ public class MainWin extends JFrame {
     }
 
     protected void onInsertComputerClick(){
-        
+        JLabel name = new JLabel("<HTML><br/> Component </HTML>"); 
+        JTextField inName = new JTextField(20); 
+        JLabel model = new JLabel("<HTML><br/> Price </HTML>"); 
+        JTextField inModel = new JTextField(20);
+        JComboBox options = new JComboBox(store.options()); 
+
+        Object[] objects = {name, inName, model, inModel,options}; 
+
+        int button = JOptionPane.showConfirmDialog(this, 
+        objects, 
+        "Customer Prompt", 
+        JOptionPane.OK_CANCEL_OPTION, 
+        JOptionPane.PLAIN_MESSAGE); 
+
+        if(options)
+
+         
     }
 
     protected void onViewClick(Record record){
