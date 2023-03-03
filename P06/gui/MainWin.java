@@ -91,67 +91,61 @@ public class MainWin extends JFrame {
         setJMenuBar(menubar); 
 
 
-        /*
+        
         // ///////////// //////////////////////////////////////////////////////////
         // T O O L B A R
         // Add a toolbar to the PAGE_START region below the menu
         JToolBar toolbar = new JToolBar("Nim Controls");
-
-        // Add a New Game stock icon
-        JButton anewB  = new JButton(UIManager.getIcon("FileView.fileIcon"));
-          anewB.setActionCommand("New Game");
-          anewB.setToolTipText("Create a new game, discarding any in progress");
-          anewB.setBorder(null);
-          toolbar.add(anewB);
-          anewB.addActionListener(event -> onNewGameClick());
-        
-        // A "horizontal strut" is just a space of the specified pixel width
-        toolbar.add(Box.createHorizontalStrut(25));
         
         // Create the 3 buttons using the icons provided
-        ImageIcon ii = new ImageIcon("button1.png");
-        button1  = new JButton(new ImageIcon("button1.png"));
-          button1.setActionCommand("Select one stick");
-          button1.setToolTipText("Select one stick");
+        
+        JButton button1  = new JButton();
+          button1.setActionCommand("Add a customer");
+          button1.setToolTipText("Add a customer");
           toolbar.add(button1);
-          button1.addActionListener(event -> onButtonClick(1));
+          button1.addActionListener(event -> onInsertCustomerClick());
 
-        button2    = new JButton(new ImageIcon("button2.png"));
-          button2.setActionCommand("Select two sticks");
-          button2.setToolTipText("Select two sticks");
+        JButton button2    = new JButton();
+          button2.setActionCommand("Add a Option");
+          button2.setToolTipText("Add a option");
           toolbar.add(button2);
-          button2.addActionListener(event -> onButtonClick(2));
+          button2.addActionListener(event -> onInsertOptionClick());
 
-        button3 = new JButton(new ImageIcon("button3.png"));
-          button3.setActionCommand("Select three sticks");
-          button3.setToolTipText("Select three sticks");
+        JButton button3 = new JButton();
+          button3.setActionCommand("Add a computer");
+          button3.setToolTipText("Add a computer");
           toolbar.add(button3);
-          button3.addActionListener(event -> onButtonClick(3));
+          button3.addActionListener(event -> onInsertComputerClick());
         
         toolbar.add(Box.createHorizontalStrut(25));
         
-        // Create a toggle button to enable or disable the computer player
-        computerPlayer = new JToggleButton(new ImageIcon("freepik_robot.png"));
-          computerPlayer.setActionCommand("Enable computer player");
-          computerPlayer.setToolTipText("Enable computer to be Player 2");
-          computerPlayer.setBorder(null);
-          toolbar.add(computerPlayer);
-          computerPlayer.addActionListener(event -> onComputerPlayerClick());
+        JButton button4  = new JButton();
+          button4.setActionCommand("View Customer");
+          button4.setToolTipText("View Customer");
+          toolbar.add(button4);
+          button4.addActionListener(event -> onViewClick(Record.CUSTOMER));
 
-        // "Horizontal glue" expands as much as possible, pushing the "X" to the right
-        toolbar.add(Box.createHorizontalGlue());
+        JButton button5    = new JButton();
+          button5.setActionCommand("View Option");
+          button5.setToolTipText("View Option");
+          toolbar.add(button5);
+          button5.addActionListener(event -> onViewClick(Record.OPTION));
+
+        JButton button6 = new JButton();
+          button6.setActionCommand("Add Computer");
+          button6.setToolTipText("Add Computer");
+          toolbar.add(button6);
+          button6.addActionListener(event -> onViewClick(Record.COMPUTER));
+
         
-        // Create a custom Quit button (not available in Swing stock icons)
-        JButton quitB  = new JButton("X");
-          quitB.setActionCommand("Quit");
-          quitB.setToolTipText("Exit game");
-          quitB.setBorder(null);
-          toolbar.add(quitB);
-          quitB.addActionListener(event -> onQuitClick());
-        toolbar.addSeparator();
+        
+       
 
         getContentPane().add(toolbar, BorderLayout.PAGE_START);
-        */
+        
+
+
+
         
         // /////////////////////////// ////////////////////////////////////////////
         // D I S P L A Y
@@ -244,15 +238,10 @@ public class MainWin extends JFrame {
         JOptionPane.PLAIN_MESSAGE); 
 
         Computer computer = new Computer(inName.getText(), inModel.getText());
-
-        /*if(!(button == JOptionPane.OK_OPTION || button == JOptionPane.CANCEL_OPTION))
-        {
-          System.out.println(options.getSelectedItem()); 
-          computer.addOption((Option)options.getSelectedItem());
-        }
+        
 
         if(button == JOptionPane.OK_OPTION)
-           store.add(computer);  */
+           store.add(computer);  
 
          
     }
@@ -288,7 +277,7 @@ public class MainWin extends JFrame {
           header.setText(s.toString());
         }
 
-        add(header, BorderLayout.PAGE_START); 
+        add(header, BorderLayout.CENTER); 
         pack(); 
     }
             
