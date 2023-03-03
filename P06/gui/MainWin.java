@@ -229,7 +229,7 @@ public class MainWin extends JFrame {
     }
 
     protected void onInsertComputerClick(){
-        JLabel name = new JLabel("<HTML><br/> Component </HTML>"); 
+        JLabel name = new JLabel("<HTML><br/> Computer Name </HTML>"); 
         JTextField inName = new JTextField(20); 
         JLabel model = new JLabel("<HTML><br/> Price </HTML>"); 
         JTextField inModel = new JTextField(20);
@@ -243,13 +243,43 @@ public class MainWin extends JFrame {
         JOptionPane.OK_CANCEL_OPTION, 
         JOptionPane.PLAIN_MESSAGE); 
 
-        if(options)
+        Computer computer = new Computer(inName.getText(), inModel.getText());
+
+        /*if(!(button == JOptionPane.OK_OPTION || button == JOptionPane.CANCEL_OPTION))
+        {
+          System.out.println(options.getSelectedItem()); 
+          computer.addOption((Option)options.getSelectedItem());
+        }
+
+        if(button == JOptionPane.OK_OPTION)
+           store.add(computer);  */
 
          
     }
 
     protected void onViewClick(Record record){
+        Object [] values; 
 
+        if(record == Record.COMPUTER)
+        {
+          values = store.computers(); 
+          String s = "<HTML><p><font size = +2> Computers </font></HTML></br>";
+          header.setText(s); 
+        }
+        else if(record == Record.CUSTOMER)
+        {
+          values = store.customers(); 
+          String s = "<HTML><p><font size = +2> Customers </font></HTML></br>";
+          header.setText(s);        } 
+        else 
+        {
+          values = store.options(); 
+          String s = "<HTML><p><font size = +2> Options </font></HTML></br>"; 
+          header.setText(s);
+        }
+
+        add(header, BorderLayout.PAGE_START); 
+        pack(); 
     }
             
    
@@ -292,6 +322,7 @@ public class MainWin extends JFrame {
    
     
     private Store store = new Store("ELSA Store"); 
+    private JLabel header = new JLabel(""); 
     
     private JLabel display;                  
     private JLabel msg;                     
