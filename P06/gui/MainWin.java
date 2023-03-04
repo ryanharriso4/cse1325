@@ -31,6 +31,7 @@ import java.awt.image.BufferedImage; // holds an image loaded from a file
 
 import javax.swing.JTextField; 
 import javax.swing.JComboBox; 
+import javax.swing.ImageIcon;
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -99,7 +100,7 @@ public class MainWin extends JFrame {
         
         // Create the 3 buttons using the icons provided
         
-        JButton button1  = new JButton();
+        JButton button1  = new JButton(new ImageIcon("gui/resources/InsertCustomer.png"));
           button1.setActionCommand("Add a customer");
           button1.setToolTipText("Add a customer");
           toolbar.add(button1);
@@ -119,7 +120,7 @@ public class MainWin extends JFrame {
         
         toolbar.add(Box.createHorizontalStrut(25));
         
-        JButton button4  = new JButton();
+        JButton button4  = new JButton(new ImageIcon("gui/resources/ViewCustomers.png"));
           button4.setActionCommand("View Customer");
           button4.setToolTipText("View Customer");
           toolbar.add(button4);
