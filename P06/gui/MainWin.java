@@ -112,7 +112,7 @@ public class MainWin extends JFrame {
           toolbar.add(button2);
           button2.addActionListener(event -> onInsertOptionClick());
 
-        JButton button3 = new JButton();
+        JButton button3 = new JButton(new ImageIcon("gui/resources/InsertComputer.png"));
           button3.setActionCommand("Add a computer");
           button3.setToolTipText("Add a computer");
           toolbar.add(button3);
@@ -132,7 +132,7 @@ public class MainWin extends JFrame {
           toolbar.add(button5);
           button5.addActionListener(event -> onViewClick(Record.OPTION));
 
-        JButton button6 = new JButton();
+        JButton button6 = new JButton(new ImageIcon("gui/resources/ViewComputers.png"));
           button6.setActionCommand("Add Computer");
           button6.setToolTipText("Add Computer");
           toolbar.add(button6);
@@ -294,19 +294,16 @@ public class MainWin extends JFrame {
         }
         
         JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>Nim</font></p>"
-          + "<p>Version 1.4J</p>"
+          + "<p><font size=+4>Elsa</font></p>"
+          + "<p><font size +=2>Exceptional Laptops and Supercomputers Always"
+          + "<p>Version 0.2</p>"
            + "</html>",
           SwingConstants.CENTER);
 
         JLabel artists = new JLabel("<html>"
-          + "<br/><p>Copyright 2017-2023 by George F. Rice</p>"
+          + "<br/><p>Copyright 2023 by Ryan T. Harris</p>"
           + "<p>Licensed under Gnu GPL 3.0</p><br/>"
-          + "<p>Logo by M0tty, licensed under CC BY-SA 3.0</p>"
-          + "<p><font size=-2>https://commons.wikimedia.org/wiki/File:Pyramidal_matches.svg</font></p>"
-          + "<p>Robot by FreePik.com, licensed for personal</p><p>and commercial purposes with attribution</p>"
-          + "<p><font size=-2>https://www.freepik.com/free-vector/grey-robot-silhouettes_714902.htm</font></p>"
-          + "</html>");
+          );
           
          JOptionPane.showMessageDialog(this, 
              new Object[]{logo, title, artists},
