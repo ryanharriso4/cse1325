@@ -294,14 +294,14 @@ public class MainWin extends JFrame {
         }
         
         JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>Elsa</font></p>"
-          + "<p><font size +=2>Exceptional Laptops and Supercomputers Always"
-          + "<p>Version 0.2</p>"
+          + "<p><font size=+4>Elsa</font></p><br>"
+          + "<p><font size +=2>Exceptional Laptops and Supercomputers Always<br>"
+          + "<p>Version 0.2</p><br>"
            + "</html>",
           SwingConstants.CENTER);
 
         JLabel artists = new JLabel("<html>"
-          + "<br/><p>Copyright 2023 by Ryan T. Harris</p>"
+          + "<br/><p>Copyright 2023 by Ryan T. Harris</p><br>"
           + "<p>Licensed under Gnu GPL 3.0</p><br/>"
           );
           
