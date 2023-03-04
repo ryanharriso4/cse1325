@@ -210,12 +210,13 @@ public class MainWin extends JFrame {
         JOptionPane.OK_CANCEL_OPTION, 
         JOptionPane.PLAIN_MESSAGE); 
 
-        long fixedPrice = (long)(Double.parseDouble(inPrice.getText()) * 100); 
+         
 
         try{
+          long fixedPrice = (long)(Double.parseDouble(inPrice.getText()) * 100); 
           store.add(new Option(componentName.getText(), fixedPrice)); 
         }catch(IllegalArgumentException e){
-            if(!(button == JOptionPane.CANCEL_OPTION))
+            if(!(button == JOptionPane.CANCEL_OPTION || button == JOptionPane.CLOSED_OPTION))
               JOptionPane.showMessageDialog(
                 this,
                 "The price that was entered is invalid.");
