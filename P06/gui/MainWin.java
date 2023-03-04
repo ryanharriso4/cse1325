@@ -106,7 +106,7 @@ public class MainWin extends JFrame {
           toolbar.add(button1);
           button1.addActionListener(event -> onInsertCustomerClick());
 
-        JButton button2    = new JButton();
+        JButton button2    = new JButton(new ImageIcon("gui/resources/InsertOption.png"));
           button2.setActionCommand("Add a Option");
           button2.setToolTipText("Add a option");
           toolbar.add(button2);
@@ -126,7 +126,7 @@ public class MainWin extends JFrame {
           toolbar.add(button4);
           button4.addActionListener(event -> onViewClick(Record.CUSTOMER));
 
-        JButton button5    = new JButton();
+        JButton button5    = new JButton(new ImageIcon("gui/resources/ViewOptions.png"));
           button5.setActionCommand("View Option");
           button5.setToolTipText("View Option");
           toolbar.add(button5);
