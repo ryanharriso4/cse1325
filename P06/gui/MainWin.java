@@ -96,7 +96,7 @@ public class MainWin extends JFrame {
         // ///////////// //////////////////////////////////////////////////////////
         // T O O L B A R
         // Add a toolbar to the PAGE_START region below the menu
-        JToolBar toolbar = new JToolBar("Nim Controls");
+        JToolBar toolbar = new JToolBar("ELSA Controls");
         
         // Create the 3 buttons using the icons provided
         
@@ -153,6 +153,7 @@ public class MainWin extends JFrame {
         // Provide a text entry box to show the remaining sticks
         display = new JLabel();
         display.setFont(new Font("SansSerif", Font.BOLD, 18));
+        display.setVerticalAlignment(JLabel.TOP); 
         add(display, BorderLayout.CENTER);
 
         // S T A T U S   B A R   D I S P L A Y ////////////////////////////////////
@@ -225,26 +226,37 @@ public class MainWin extends JFrame {
     }
 
     protected void onInsertComputerClick(){
-        JLabel name = new JLabel("<HTML><br/> Computer Name </HTML>"); 
-        JTextField inName = new JTextField(20); 
-        JLabel model = new JLabel("<HTML><br/> Price </HTML>"); 
-        JTextField inModel = new JTextField(20);
-        JComboBox options = new JComboBox(store.options()); 
+        try{
+          Computer computer;
+          JLabel name = new JLabel("<HTML><br/> Computer Name </HTML>"); 
+          JTextField inName = new JTextField(20); 
+          JLabel model = new JLabel("<HTML><br/> Model </HTML>"); 
+          JTextField inModel = new JTextField(20);
+         
 
-        Object[] objects = {name, inName, model, inModel,options}; 
+          Object[] objects = {name, inName, model, inModel}; 
 
-        int button = JOptionPane.showConfirmDialog(this, 
-        objects, 
-        "Customer Prompt", 
-        JOptionPane.OK_CANCEL_OPTION, 
-        JOptionPane.PLAIN_MESSAGE); 
+          int button = JOptionPane.showConfirmDialog(this, 
+          objects, 
+          "Customer Prompt", 
+          JOptionPane.OK_CANCEL_OPTION, 
+          JOptionPane.PLAIN_MESSAGE); 
+          computer = new Computer(inName.getText(), inModel.getText());
 
-        Computer computer = new Computer(inName.getText(), inModel.getText());
-        
+          JComboBox<Object> cb = new JComboBox<>(store.options());
+          int optionsAdded = 0;
 
-        if(button == JOptionPane.OK_OPTION)
-           store.add(computer);  
-
+          while(true) 
+          {
+              int button2 = JOptionPane.showConfirmDialog(this, cb, "Another Option?", JOptionPane.YES_NO_OPTION);
+              if(button2 != JOptionPane.YES_OPTION) break;
+                 computer.addOption((Option) cb.getSelectedItem());
+              ++optionsAdded;
+          }
+          if(optionsAdded > 0)
+            store.add(computer);
+        }
+        catch(NullPointerException e){}
          
     }
 
@@ -258,7 +270,7 @@ public class MainWin extends JFrame {
           for(Object o: values)
             s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
           s.append("</ol></HTML>"); 
-          header.setText(s.toString()); 
+          display.setText(s.toString()); 
         }
         else if(record == Record.CUSTOMER)
         {
@@ -267,7 +279,7 @@ public class MainWin extends JFrame {
           for(Object o: values)
             s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
           s.append("</ol></HTML>"); 
-          header.setText(s.toString());       
+          display.setText(s.toString());       
         } 
         else 
         {
@@ -276,11 +288,10 @@ public class MainWin extends JFrame {
           for(Object o: values)
             s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>"); 
           s.append("</ol></HTML>"); 
-          header.setText(s.toString());
+          display.setText(s.toString()); 
         }
 
-        add(header, BorderLayout.CENTER); 
-        pack(); 
+        
     }
             
    
@@ -294,9 +305,9 @@ public class MainWin extends JFrame {
         }
         
         JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>Elsa</font></p><br>"
+          + "<p><font size=+4>          Elsa</font></p><br>"
           + "<p><font size +=2>Exceptional Laptops and Supercomputers Always<br>"
-          + "<p>Version 0.2</p><br>"
+          + "<p>          Version 0.2</p><br>"
            + "</html>",
           SwingConstants.CENTER);
 
@@ -307,7 +318,7 @@ public class MainWin extends JFrame {
           
          JOptionPane.showMessageDialog(this, 
              new Object[]{logo, title, artists},
-             "The Game of Nim",
+             "ELSA",
              JOptionPane.PLAIN_MESSAGE
          );
      }
@@ -320,7 +331,6 @@ public class MainWin extends JFrame {
    
     
     private Store store = new Store("ELSA Store"); 
-    private JLabel header = new JLabel(""); 
     
     private JLabel display;                  
     private JLabel msg;                     
