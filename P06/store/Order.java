@@ -6,10 +6,11 @@ public class Order{
 	private static long nextOrderNumber = 0; 
 	private long orderNumber; 
 	private Customer customer; 
-	private ArrayList <Computer> computers = new ArrayList(); 
+	private ArrayList <Computer> computers; 
 
 	public Order(Customer customer)
 	{
+		computers = new <Computer> ArrayList(); 
 		this.customer = customer; 
 		orderNumber = nextOrderNumber; 
 		nextOrderNumber++; 

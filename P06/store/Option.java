@@ -1,4 +1,7 @@
 package store;
+import java.io.BufferedWriter; 
+import java.io.FileWriter;
+import java.io.IOException; 
 
 
 public class Option{
@@ -18,6 +21,12 @@ public class Option{
 	public long cost()
 	{
 		return cost; 
+	}
+
+	public void save(BufferedWriter bw) throws IOException
+	{
+		bw.write(name + '\n');
+		bw.write("" + cost + '\n')
 	}
 
 	@Override

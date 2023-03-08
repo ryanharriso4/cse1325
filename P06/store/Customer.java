@@ -1,5 +1,7 @@
 package store;
-
+import java.io.BufferedWriter; 
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Customer{
 	private String name; 
@@ -13,6 +15,12 @@ public class Customer{
 			throw new IllegalArgumentException("The email for user " +  name  +  " is invalid.\n"); 
 		}
 		this.email = email; 
+	}
+
+	public void save(BufferedWriter bw)throws IOException
+	{
+		bw.write(name + '\n');
+		bw.write(email + '\n'); 
 	}
 
 	@Override

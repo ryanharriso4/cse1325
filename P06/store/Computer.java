@@ -1,6 +1,7 @@
 package store;
-
-
+import java.io.BufferedWriter; 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList; 
 
 public class Computer{
@@ -25,6 +26,17 @@ public class Computer{
 		for(Option o: options)
 			sum += o.cost(); 
 		return sum;
+
+	}
+
+
+	public void save(BufferedWriter bw) throws IOException
+	{
+		bw.write(name + '\n'); 
+		bw.write(model + '\n');
+		bw.write(options.size() + '\n'); 
+		for(Option option: options)
+			option.save(bw);  
 
 	}
 	@Override

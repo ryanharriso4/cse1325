@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage; // holds an image loaded from a file
 import javax.swing.JTextField; 
 import javax.swing.JComboBox; 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser; 
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -49,6 +50,7 @@ public class MainWin extends JFrame {
 
         JMenu     file = new JMenu("File"); 
         JMenuItem quit = new JMenuItem("Quit"); 
+        JMenuItem save = new JMenuItem("Save"); 
 
         JMenu     insert   = new JMenu("Insert"); 
         JMenuItem customer = new JMenuItem("Customer"); 
@@ -65,6 +67,7 @@ public class MainWin extends JFrame {
         
 
         quit.addActionListener(event -> onQuitClick()); 
+        save.addActionListener(event -> onSaveClick()); 
         customer.addActionListener(event -> onInsertCustomerClick()); 
         option.addActionListener(event -> onInsertOptionClick()); 
         computer.addActionListener(event -> onInsertComputerClick()); 
@@ -327,6 +330,25 @@ public class MainWin extends JFrame {
 
     protected void onQuitClick() {System.exit(0);}   // Exit the game
 
+    protected void onSaveClick(){
+      
+    }
+
+    protected void onSaveGameClick() {
+      JFileChooser fc = new JFileChooser(filename); 
+      FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt"); 
+      fc.addChoosableFileFilter(txtFiles); 
+      fc.setFileFilter(txtFiles); 
+
+      int result = fc.showSaveDialog(this); 
+      if(result == JFileChooser.APPROVE_OPTION); 
+      {
+        filename = fc.getSelectedFile();
+        if(!filename.getAbsolutePath().endsWith(".txt"))
+          filename = new File(filename.getAbsolutePath() + ".txt"); 
+        onSaveClick(); 
+      }
+    }
  
    
     
