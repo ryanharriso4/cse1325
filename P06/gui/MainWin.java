@@ -32,7 +32,13 @@ import java.awt.image.BufferedImage; // holds an image loaded from a file
 import javax.swing.JTextField; 
 import javax.swing.JComboBox; 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser; 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter; 
+import javax.swing.filechooser.FileNameExtensionFilter; 
+
+import java.io.BufferedWriter; 
+import java.io.FileWriter; 
+import java.io.File;  
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -48,9 +54,10 @@ public class MainWin extends JFrame {
         
         
 
-        JMenu     file = new JMenu("File"); 
-        JMenuItem quit = new JMenuItem("Quit"); 
-        JMenuItem save = new JMenuItem("Save"); 
+        JMenu     file   = new JMenu("File"); 
+        JMenuItem quit   = new JMenuItem("Quit"); 
+        JMenuItem save   = new JMenuItem("Save"); 
+        JMenuItem saveAs = new JMenuItem("SaveAs"); 
 
         JMenu     insert   = new JMenu("Insert"); 
         JMenuItem customer = new JMenuItem("Customer"); 
@@ -68,6 +75,8 @@ public class MainWin extends JFrame {
 
         quit.addActionListener(event -> onQuitClick()); 
         save.addActionListener(event -> onSaveClick()); 
+        saveAs.addActionListener(event -> onSaveAsClick()); 
+
         customer.addActionListener(event -> onInsertCustomerClick()); 
         option.addActionListener(event -> onInsertOptionClick()); 
         computer.addActionListener(event -> onInsertComputerClick()); 
@@ -79,6 +88,8 @@ public class MainWin extends JFrame {
         about.addActionListener(event -> onAboutClick()); 
 
         file.add(quit);
+        file.add(save);
+        file.add(saveAs);
         insert.add(customer); 
         insert.add(option); 
         insert.add(computer); 
@@ -331,23 +342,43 @@ public class MainWin extends JFrame {
     protected void onQuitClick() {System.exit(0);}   // Exit the game
 
     protected void onSaveClick(){
-      
+      try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename)))
+      {
+        for(Object o: store.options()) 
+          ((Option)o).save(bw); 
+        for(Object c: store.customers()) 
+          ((Customer)c).save(bw);
+        for(Object c: store.computers()) 
+          ((Computer)c).save(bw);
+      }
+      catch(Exception e)
+      {
+        System.err.println("Failed to write: " + e); 
+        System.exit(-1); 
+      }
+      filename = new File("Elsa.txt");  
     }
 
-    protected void onSaveGameClick() {
-      JFileChooser fc = new JFileChooser(filename); 
-      FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt"); 
-      fc.addChoosableFileFilter(txtFiles); 
-      fc.setFileFilter(txtFiles); 
-
-      int result = fc.showSaveDialog(this); 
-      if(result == JFileChooser.APPROVE_OPTION); 
+    protected void onSaveAsClick() {
+      try
       {
-        filename = fc.getSelectedFile();
-        if(!filename.getAbsolutePath().endsWith(".txt"))
-          filename = new File(filename.getAbsolutePath() + ".txt"); 
-        onSaveClick(); 
+        JFileChooser fc = new JFileChooser(filename); 
+        FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt"); 
+        fc.addChoosableFileFilter(txtFiles); 
+        fc.setFileFilter(txtFiles); 
+
+        int result = fc.showSaveDialog(this); 
+        if(result == JFileChooser.APPROVE_OPTION); 
+        {
+          filename = fc.getSelectedFile();
+          if(!filename.getAbsolutePath().endsWith(".txt"))
+            filename = new File(filename.getAbsolutePath() + ".txt"); 
+          onSaveClick(); 
+        }
+      
       }
+      catch(NullPointerException e){}
+      
     }
  
    
@@ -355,5 +386,6 @@ public class MainWin extends JFrame {
     private Store store = new Store("ELSA Store"); 
     
     private JLabel display;                  
-    private JLabel msg;                     
+    private JLabel msg;  
+    private File filename = new File("Elsa.txt");                    
 }

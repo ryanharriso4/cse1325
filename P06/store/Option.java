@@ -26,7 +26,7 @@ public class Option{
 	public void save(BufferedWriter bw) throws IOException
 	{
 		bw.write(name + '\n');
-		bw.write("" + cost + '\n')
+		bw.write("" + cost + '\n');
 	}
 
 	@Override

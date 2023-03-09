@@ -34,7 +34,7 @@ public class Computer{
 	{
 		bw.write(name + '\n'); 
 		bw.write(model + '\n');
-		bw.write(options.size() + '\n'); 
+		bw.write("" + options.size() + '\n'); 
 		for(Option option: options)
 			option.save(bw);  
 
