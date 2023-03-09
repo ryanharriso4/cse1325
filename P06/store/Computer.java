@@ -2,7 +2,8 @@ package store;
 import java.io.BufferedWriter; 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.io.BufferedReader;
 
 public class Computer{
 	private String name; 
@@ -13,6 +14,15 @@ public class Computer{
 	{
 		this.name = name; 
 		this.model = model; 
+	}
+
+	public Computer(BufferedReader br) throws IOException
+	{
+		name = br.readLine(); 
+		model = br.readLine();
+		int upperBound = Integer.parseInt(br.readLine()); 
+		for(int i = 0; i < upperBound; i++)
+			options.add(new Option(br)); 
 	}
 
 	public void addOption(Option option)

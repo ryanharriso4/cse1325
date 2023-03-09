@@ -2,6 +2,8 @@ package store;
 import java.io.BufferedWriter; 
 import java.io.FileWriter;
 import java.io.IOException; 
+import java.io.BufferedReader;
+
 
 
 public class Option{
@@ -16,6 +18,12 @@ public class Option{
 			throw new IllegalArgumentException("The component " + name + " has an invalid cost\n"); 
 		}
 		this.cost = cost; 
+	}
+
+	public Option(BufferedReader br) throws IOException
+	{
+		name = br.readLine(); 
+		cost = Long.parseLong(br.readLine()); 
 	}
 
 	public long cost()
