@@ -37,7 +37,9 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter; 
 
 import java.io.BufferedWriter; 
+import java.io.BufferedReader; 
 import java.io.FileWriter; 
+import java.io.FileReader; 
 import java.io.File;  
 
 public class MainWin extends JFrame {
@@ -58,6 +60,7 @@ public class MainWin extends JFrame {
         JMenuItem quit   = new JMenuItem("Quit"); 
         JMenuItem save   = new JMenuItem("Save"); 
         JMenuItem saveAs = new JMenuItem("SaveAs"); 
+        JMenuItem open   = new JMenuItem("Open"); 
 
         JMenu     insert   = new JMenu("Insert"); 
         JMenuItem customer = new JMenuItem("Customer"); 
@@ -75,7 +78,8 @@ public class MainWin extends JFrame {
 
         quit.addActionListener(event -> onQuitClick()); 
         save.addActionListener(event -> onSaveClick()); 
-        saveAs.addActionListener(event -> onSaveAsClick()); 
+        saveAs.addActionListener(event -> onSaveAsClick());
+        open.addActionListener(event -> onOpenClick());  
 
         customer.addActionListener(event -> onInsertCustomerClick()); 
         option.addActionListener(event -> onInsertOptionClick()); 
@@ -90,6 +94,7 @@ public class MainWin extends JFrame {
         file.add(quit);
         file.add(save);
         file.add(saveAs);
+        file.add(open); 
         insert.add(customer); 
         insert.add(option); 
         insert.add(computer); 
@@ -345,9 +350,11 @@ public class MainWin extends JFrame {
       try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename)))
       {
         for(Object o: store.options()) 
-          ((Option)o).save(bw); 
+          ((Option)o).save(bw);
+        bw.write("<Customer>\n"); 
         for(Object c: store.customers()) 
           ((Customer)c).save(bw);
+        bw.write("<Computer>\n"); 
         for(Object c: store.computers()) 
           ((Computer)c).save(bw);
       }
@@ -379,6 +386,45 @@ public class MainWin extends JFrame {
       }
       catch(NullPointerException e){}
       
+    }
+
+    protected void onOpenClick(){
+      try
+      {
+        JFileChooser fc = new JFileChooser(filename); 
+        FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt"); 
+        fc.addChoosableFileFilter(txtFiles); 
+        fc.setFileFilter(txtFiles); 
+
+        int result = fc.showSaveDialog(this); 
+        if(result == JFileChooser.APPROVE_OPTION); 
+        {
+          filename = fc.getSelectedFile();
+          if(!filename.getAbsolutePath().endsWith(".txt"))
+            filename = new File(filename.getAbsolutePath() + ".txt"); 
+        }
+
+      
+      }
+      catch(NullPointerException e){}  
+
+      try(BufferedReader br = new BufferedReader(new FileReader(filename)))
+      {
+          while(!(br.readLine().equals("<Customer>")))
+          {
+            store.add(new Option(br));  
+          } 
+          while(!(br.readLine().equals("<Computer>")))
+          {
+            store.add(new Customer(br)); 
+          }
+          while(br.readLine() != null)
+          {
+            store.add(new Computer(br));
+          }
+      }
+      catch(NullPointerException e){}
+      filename = "Elsa.txt"; 
     }
  
    
