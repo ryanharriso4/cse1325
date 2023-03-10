@@ -41,7 +41,11 @@ import java.io.BufferedReader;
 import java.io.FileWriter; 
 import java.io.FileReader; 
 import java.io.File; 
-import java.io.IOException;  
+import java.io.IOException;
+
+import java.awt.Graphics; 
+import java.awt.Graphics2D; 
+   
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -61,7 +65,8 @@ public class MainWin extends JFrame {
         JMenuItem quit   = new JMenuItem("Quit"); 
         JMenuItem save   = new JMenuItem("Save"); 
         JMenuItem saveAs = new JMenuItem("SaveAs"); 
-        JMenuItem open   = new JMenuItem("Open"); 
+        JMenuItem open   = new JMenuItem("Open");
+        JMenuItem aNew   = new JMenuItem("New");  
 
         JMenu     insert   = new JMenu("Insert"); 
         JMenuItem customer = new JMenuItem("Customer"); 
@@ -81,6 +86,7 @@ public class MainWin extends JFrame {
         save.addActionListener(event -> onSaveClick()); 
         saveAs.addActionListener(event -> onSaveAsClick());
         open.addActionListener(event -> onOpenClick());  
+        aNew.addActionListener(event -> onNewClick()); 
 
         customer.addActionListener(event -> onInsertCustomerClick()); 
         option.addActionListener(event -> onInsertOptionClick()); 
@@ -96,6 +102,7 @@ public class MainWin extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open); 
+        file.add(aNew); 
         insert.add(customer); 
         insert.add(option); 
         insert.add(computer); 
@@ -317,13 +324,12 @@ public class MainWin extends JFrame {
    
     
     protected void onAboutClick() {                 // Display About dialog
-        JLabel logo = null;
-        try {
-            BufferedImage myPicture = ImageIO.read(new File("128px-Pyramidal_matches.png"));
-            logo = new JLabel(new ImageIcon(myPicture));
-        } catch(IOException e) {
-        }
+         
         
+
+
+        JLabel logo = null;
+      
         JLabel title = new JLabel("<html>"
           + "<p><font size=+4>          Elsa</font></p><br>"
           + "<p><font size +=2>Exceptional Laptops and Supercomputers Always<br>"
@@ -428,18 +434,38 @@ public class MainWin extends JFrame {
           {
             store.add(new Computer(br)); 
           } 
-
-          
-
         }
-        catch (Exception e)
-        {
-          JOptionPane.showMessageDialog(this, "Unable to open" + filename + " "); 
-          System.err.println(e); 
-        }
+        catch(Exception e){}
+      }
+    }
+
+        protected void onNewClick(){
+          try{
+
+            JLabel question = new JLabel("<HTML><br/> Would you like to save before closing this instance? </HTML>");
+         
+            Object[] objects = {question}; 
+
+            int button = JOptionPane.showConfirmDialog(this, 
+            objects, 
+            "Question Prompt", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.PLAIN_MESSAGE); 
+            
+
+            if(button == JOptionPane.YES_OPTION)
+              onSaveAsClick(); 
+            store = new Store("Elsa Store"); 
+
+          }
+          catch (Exception e)
+          {
+            JOptionPane.showMessageDialog(this, "Unable to save" + filename + " "); 
+            System.err.println(e); 
+          }
       }
 
-    }
+    
  
    
     
