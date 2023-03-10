@@ -40,7 +40,8 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader; 
 import java.io.FileWriter; 
 import java.io.FileReader; 
-import java.io.File;  
+import java.io.File; 
+import java.io.IOException;  
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -349,14 +350,23 @@ public class MainWin extends JFrame {
     protected void onSaveClick(){
       try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename)))
       {
-        for(Object o: store.options()) 
-          ((Option)o).save(bw);
-        bw.write("<Customer>\n"); 
-        for(Object c: store.customers()) 
-          ((Customer)c).save(bw);
-        bw.write("<Computer>\n"); 
-        for(Object c: store.computers()) 
-          ((Computer)c).save(bw);
+        Object [] values; 
+        values = store.options(); 
+        bw.write("" +  values.length + '\n'); 
+        for(int i = 0; i < values.length; i++) 
+        {
+          ((Option)values[i]).save(bw);
+        }
+
+        values = store.customers(); 
+        bw.write("" +  values.length + '\n'); 
+        for(int i = 0; i < values.length; i++) 
+          ((Customer)values[i]).save(bw);
+
+        values = store.computers(); 
+        bw.write("" +  values.length + '\n');
+        for(int i = 0; i < values.length; i++) 
+          ((Computer)values[i]).save(bw);
       }
       catch(Exception e)
       {
@@ -389,42 +399,46 @@ public class MainWin extends JFrame {
     }
 
     protected void onOpenClick(){
-      try
-      {
-        JFileChooser fc = new JFileChooser(filename); 
-        FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt"); 
-        fc.addChoosableFileFilter(txtFiles); 
-        fc.setFileFilter(txtFiles); 
+      JFileChooser fc = new JFileChooser(filename); 
+      FileFilter txtFiles = new FileNameExtensionFilter("txt files", "txt");
+      fc.addChoosableFileFilter(txtFiles); 
+      fc.setFileFilter(txtFiles); 
 
-        int result = fc.showSaveDialog(this); 
-        if(result == JFileChooser.APPROVE_OPTION); 
+      int result = fc.showOpenDialog(this); 
+      if(result == JFileChooser.APPROVE_OPTION)
+      {
+        filename = fc.getSelectedFile(); 
+
+        try(BufferedReader br = new BufferedReader(new FileReader(filename)))
         {
-          filename = fc.getSelectedFile();
-          if(!filename.getAbsolutePath().endsWith(".txt"))
-            filename = new File(filename.getAbsolutePath() + ".txt"); 
-        }
-
-      
-      }
-      catch(NullPointerException e){}  
-
-      try(BufferedReader br = new BufferedReader(new FileReader(filename)))
-      {
-          while(!(br.readLine().equals("<Customer>")))
+          int upperBound = Integer.parseInt(br.readLine()); 
+          for(int i = 0; i < upperBound; i++)
           {
-            store.add(new Option(br));  
+            store.add(new Option(br)); 
           } 
-          while(!(br.readLine().equals("<Computer>")))
+
+          upperBound = Integer.parseInt(br.readLine()); 
+          for(int i = 0; i < upperBound; i++)
           {
             store.add(new Customer(br)); 
-          }
-          while(br.readLine() != null)
+          } 
+
+          upperBound = Integer.parseInt(br.readLine()); 
+          for(int i = 0; i < upperBound; i++)
           {
-            store.add(new Computer(br));
-          }
+            store.add(new Computer(br)); 
+          } 
+
+          
+
+        }
+        catch (Exception e)
+        {
+          JOptionPane.showMessageDialog(this, "Unable to open" + filename + " "); 
+          System.err.println(e); 
+        }
       }
-      catch(NullPointerException e){}
-      filename = "Elsa.txt"; 
+
     }
  
    
