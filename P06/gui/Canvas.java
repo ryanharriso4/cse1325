@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D; 
 import java.awt.Color; 
 import java.awt.image.BufferedImage; 
+import java.awt.Font; 
 
 import java.io.File; 
 import java.io.IOException; 
@@ -19,7 +20,7 @@ public class Canvas extends JPanel
 	public Canvas()
 	{
 		setBackground(Color.BLACK); 
-		String imageFile = "gui/resources/Snowflake.png"; 
+		String imageFile = "gui/resources/OnlineSnowflake.png"; 
 		try{
 			image = ImageIO.read(new File(imageFile)); 
 		} 
@@ -29,18 +30,18 @@ public class Canvas extends JPanel
 		}
 	}
 
-	
+	@Override
+    public Dimension getPreferredSize() {
+        return new Dimension(300, 300);
+    }
+    
+
 
 	public void paintComponent(Graphics graphics)
 	{
 		super.paintComponent(graphics); 
 		Graphics2D g = (Graphics2D) graphics.create();
-		Line [] lines = new Line []{
-			new Line(100, 0, 100, 200),
-			new Line(200, 0, 200, 200),
-			new Line(300, 0, 300, 200),
-			new Line(400, 0, 400, 200)
-		};
+		
 
 		Color [] colors = new Color []{
 			new Color(128, 234, 255), 
@@ -49,13 +50,18 @@ public class Canvas extends JPanel
 			new Color(51, 51, 255)
 		};
 
-		int colorIndex = 0; 
-		for(Line l: lines)
+		int colorIndex = 0;
+		for(int x = 0; x <= 400; x += 10)
 		{
 			g.setColor(colors[colorIndex]);
 			colorIndex = (colorIndex < 3) ? colorIndex + 1 : 0;
-			g.drawLine(l.x1, l.y1, l.x2, l.y2); 
-		} 
+			g.drawLine(x, 0, x, 300);
+		}
+
+		g.setColor(Color.WHITE);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+		g.drawString("Better Computers, Better Prices", 50, 300);
+
 		int x = (getBounds().width - image.getWidth()) / 2; 
 		int y = (getBounds().height - image.getHeight()) / 2;
 
@@ -64,16 +70,3 @@ public class Canvas extends JPanel
 	}
 }
 
-class Line{
-	int x1; 
-	int x2; 
-	int y1; 
-	int y2; 
-	Line(int x1, int y1, int x2, int y2)
-	{
-		this.x1 = x1; 
-		this.x2 = x2; 
-		this.y1 = y1; 
-		this.y2 = y2; 
-	}
-}

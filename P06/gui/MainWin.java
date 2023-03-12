@@ -333,10 +333,10 @@ public class MainWin extends JFrame {
       
         JPanel logo = new Canvas();
       
-        JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>          Elsa</font></p><br>"
+        JLabel title = new JLabel("<html><br>"
+          + "<p><font size=+4>Elsa</font></p><br>"
           + "<p><font size +=2>Exceptional Laptops and Supercomputers Always<br>"
-          + "<p>          Version 0.2</p><br>"
+          + "<p>Version 0.2</p><br>"
            + "</html>",
           SwingConstants.CENTER);
 
@@ -344,9 +344,13 @@ public class MainWin extends JFrame {
           + "<br/><p>Copyright 2023 by Ryan T. Harris</p><br>"
           + "<p>Licensed under Gnu GPL 3.0</p><br/>"
           );
+
+        JLabel copyright = new JLabel("<html>"
+          + "<br/><p><font size += 2> Logo based on work by IO-Images per the Pixabay License</p>"
+          + "<br/><p><font size -= 2>https://pixabay.com/images/id-1077428/<p>"); 
           
          JOptionPane.showMessageDialog(this, 
-             new Object[]{logo, title, artists},
+             new Object[]{logo, title, artists, copyright},
              "ELSA",
              JOptionPane.PLAIN_MESSAGE
          );
