@@ -13,7 +13,8 @@ import javax.swing.JToggleButton;    // 2-state button
 import javax.swing.BorderFactory;    // manufacturers Border objects around buttons
 import javax.swing.Box;              // to create toolbar spacer
 import javax.swing.UIManager;        // to access default icons
-import javax.swing.JLabel;           // text or image holder
+import javax.swing.JLabel; 
+import javax.swing.JPanel;           // text or image holder
 import javax.swing.ImageIcon;        // holds a custom icon
 import javax.swing.SwingConstants;   // useful values for Swing method calls
 
@@ -34,7 +35,9 @@ import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter; 
-import javax.swing.filechooser.FileNameExtensionFilter; 
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.JDialog;   
 
 import java.io.BufferedWriter; 
 import java.io.BufferedReader; 
@@ -44,7 +47,8 @@ import java.io.File;
 import java.io.IOException;
 
 import java.awt.Graphics; 
-import java.awt.Graphics2D; 
+import java.awt.Graphics2D;
+import java.awt.Window;  
    
 
 public class MainWin extends JFrame {
@@ -324,11 +328,10 @@ public class MainWin extends JFrame {
    
     
     protected void onAboutClick() {                 // Display About dialog
-         
-        
 
 
-        JLabel logo = null;
+      
+        JPanel logo = new Canvas();
       
         JLabel title = new JLabel("<html>"
           + "<p><font size=+4>          Elsa</font></p><br>"
@@ -347,7 +350,9 @@ public class MainWin extends JFrame {
              "ELSA",
              JOptionPane.PLAIN_MESSAGE
          );
-     }
+    }
+        
+     
 
 
 
