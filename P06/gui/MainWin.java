@@ -13,7 +13,8 @@ import javax.swing.JToggleButton;    // 2-state button
 import javax.swing.BorderFactory;    // manufacturers Border objects around buttons
 import javax.swing.Box;              // to create toolbar spacer
 import javax.swing.UIManager;        // to access default icons
-import javax.swing.JLabel;           // text or image holder
+import javax.swing.JLabel; 
+import javax.swing.JPanel;           // text or image holder
 import javax.swing.ImageIcon;        // holds a custom icon
 import javax.swing.SwingConstants;   // useful values for Swing method calls
 
@@ -34,14 +35,21 @@ import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter; 
-import javax.swing.filechooser.FileNameExtensionFilter; 
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.JDialog;   
 
 import java.io.BufferedWriter; 
 import java.io.BufferedReader; 
 import java.io.FileWriter; 
 import java.io.FileReader; 
 import java.io.File; 
-import java.io.IOException;  
+import java.io.IOException;
+
+import java.awt.Graphics; 
+import java.awt.Graphics2D;
+import java.awt.Window;  
+   
 
 public class MainWin extends JFrame {
     public MainWin(String title) {
@@ -61,7 +69,8 @@ public class MainWin extends JFrame {
         JMenuItem quit   = new JMenuItem("Quit"); 
         JMenuItem save   = new JMenuItem("Save"); 
         JMenuItem saveAs = new JMenuItem("SaveAs"); 
-        JMenuItem open   = new JMenuItem("Open"); 
+        JMenuItem open   = new JMenuItem("Open");
+        JMenuItem aNew   = new JMenuItem("New");  
 
         JMenu     insert   = new JMenu("Insert"); 
         JMenuItem customer = new JMenuItem("Customer"); 
@@ -81,6 +90,7 @@ public class MainWin extends JFrame {
         save.addActionListener(event -> onSaveClick()); 
         saveAs.addActionListener(event -> onSaveAsClick());
         open.addActionListener(event -> onOpenClick());  
+        aNew.addActionListener(event -> onNewClick()); 
 
         customer.addActionListener(event -> onInsertCustomerClick()); 
         option.addActionListener(event -> onInsertOptionClick()); 
@@ -96,6 +106,7 @@ public class MainWin extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open); 
+        file.add(aNew); 
         insert.add(customer); 
         insert.add(option); 
         insert.add(computer); 
@@ -317,17 +328,15 @@ public class MainWin extends JFrame {
    
     
     protected void onAboutClick() {                 // Display About dialog
-        JLabel logo = null;
-        try {
-            BufferedImage myPicture = ImageIO.read(new File("128px-Pyramidal_matches.png"));
-            logo = new JLabel(new ImageIcon(myPicture));
-        } catch(IOException e) {
-        }
-        
-        JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>          Elsa</font></p><br>"
+
+
+      
+        JPanel logo = new Canvas();
+      
+        JLabel title = new JLabel("<html><br>"
+          + "<p><font size=+4>Elsa</font></p><br>"
           + "<p><font size +=2>Exceptional Laptops and Supercomputers Always<br>"
-          + "<p>          Version 0.2</p><br>"
+          + "<p>Version 0.2</p><br>"
            + "</html>",
           SwingConstants.CENTER);
 
@@ -335,13 +344,19 @@ public class MainWin extends JFrame {
           + "<br/><p>Copyright 2023 by Ryan T. Harris</p><br>"
           + "<p>Licensed under Gnu GPL 3.0</p><br/>"
           );
+
+        JLabel copyright = new JLabel("<html>"
+          + "<br/><p><font size += 2> Logo based on work by IO-Images per the Pixabay License</p>"
+          + "<br/><p><font size -= 2>https://pixabay.com/images/id-1077428/<p>"); 
           
          JOptionPane.showMessageDialog(this, 
-             new Object[]{logo, title, artists},
+             new Object[]{logo, title, artists, copyright},
              "ELSA",
              JOptionPane.PLAIN_MESSAGE
          );
-     }
+    }
+        
+     
 
 
 
@@ -428,18 +443,38 @@ public class MainWin extends JFrame {
           {
             store.add(new Computer(br)); 
           } 
-
-          
-
         }
-        catch (Exception e)
-        {
-          JOptionPane.showMessageDialog(this, "Unable to open" + filename + " "); 
-          System.err.println(e); 
-        }
+        catch(Exception e){}
+      }
+    }
+
+        protected void onNewClick(){
+          try{
+
+            JLabel question = new JLabel("<HTML><br/> Would you like to save before closing this instance? </HTML>");
+         
+            Object[] objects = {question}; 
+
+            int button = JOptionPane.showConfirmDialog(this, 
+            objects, 
+            "Question Prompt", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.PLAIN_MESSAGE); 
+            
+
+            if(button == JOptionPane.YES_OPTION)
+              onSaveAsClick(); 
+            store = new Store("Elsa Store"); 
+
+          }
+          catch (Exception e)
+          {
+            JOptionPane.showMessageDialog(this, "Unable to save" + filename + " "); 
+            System.err.println(e); 
+          }
       }
 
-    }
+    
  
    
     
