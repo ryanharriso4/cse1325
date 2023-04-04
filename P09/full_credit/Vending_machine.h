@@ -3,13 +3,12 @@
 
 class Vending_machine{
 private:
-	std::vector <Item>; 
+	std::vector <Item> items; 
 
 public:
 	add(std::string name, int price); 
 	buy(int index); 
 	std:: string menu(); 
-
 }
 
 #endif
