@@ -1,22 +1,45 @@
 package store;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
 
 public class Order {
-	private static long nextOrderNumber = 0;
+	private static long nextOrderNumber = 1;
 	private long orderNumber;
 	private Customer customer;
-	private ArrayList<Computer> computers;
+	private ArrayList<Computer> computers = new ArrayList<>();
 
 	public Order(Customer customer) {
-		computers = new <Computer>ArrayList();
 		this.customer = customer;
 		orderNumber = nextOrderNumber;
 		nextOrderNumber++;
 	}
 
+	public Order(BufferedReader br) throws IOException {
+		nextOrderNumber = Long.parseLong(br.readLine());
+		orderNumber = Long.parseLong(br.readLine());
+		customer = new Customer(br);
+		int upperBound = Integer.parseInt(br.readLine());
+		for (int i = 0; i < upperBound; i++) {
+			computers.add(new Computer(br));
+		}
+
+	}
+
 	public void addComputer(Computer computer) {
 		computers.add(computer);
+	}
+
+	public void save(BufferedWriter bw) throws IOException {
+		bw.write("" + nextOrderNumber + '\n');
+		bw.write("" + orderNumber + '\n');
+		customer.save(bw);
+		bw.write("" + computers.size() + '\n');
+		for (Computer computer : computers)
+			computer.save(bw);
 	}
 
 	@Override

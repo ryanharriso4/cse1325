@@ -98,7 +98,7 @@ public class MainWin extends JFrame {
     customers.addActionListener(event -> onViewClick(Record.CUSTOMER));
     options.addActionListener(event -> onViewClick(Record.OPTION));
     computers.addActionListener(event -> onViewClick(Record.COMPUTER));
-    orders.addActionListener(event -> onViewOrderClick());
+    orders.addActionListener(event -> onViewClick(Record.ORDER));
 
     about.addActionListener(event -> onAboutClick());
 
@@ -114,6 +114,7 @@ public class MainWin extends JFrame {
     view.add(customers);
     view.add(options);
     view.add(computers);
+    view.add(orders);
     help.add(about);
 
     menubar.add(file);
@@ -148,25 +149,37 @@ public class MainWin extends JFrame {
     toolbar.add(button3);
     button3.addActionListener(event -> onInsertComputerClick());
 
+    JButton button4 = new JButton(new ImageIcon("gui/resources/InsertOrders.png"));
+    button4.setActionCommand("Add a order");
+    button4.setToolTipText("Add a order");
+    toolbar.add(button4);
+    button4.addActionListener(event -> onInsertOrderClick());
+
     toolbar.add(Box.createHorizontalStrut(25));
 
-    JButton button4 = new JButton(new ImageIcon("gui/resources/ViewCustomers.png"));
-    button4.setActionCommand("View Customer");
-    button4.setToolTipText("View Customer");
-    toolbar.add(button4);
-    button4.addActionListener(event -> onViewClick(Record.CUSTOMER));
-
-    JButton button5 = new JButton(new ImageIcon("gui/resources/ViewOptions.png"));
-    button5.setActionCommand("View Option");
-    button5.setToolTipText("View Option");
+    JButton button5 = new JButton(new ImageIcon("gui/resources/ViewCustomers.png"));
+    button5.setActionCommand("View Customer");
+    button5.setToolTipText("View Customer");
     toolbar.add(button5);
-    button5.addActionListener(event -> onViewClick(Record.OPTION));
+    button5.addActionListener(event -> onViewClick(Record.CUSTOMER));
 
-    JButton button6 = new JButton(new ImageIcon("gui/resources/ViewComputers.png"));
-    button6.setActionCommand("Add Computer");
-    button6.setToolTipText("Add Computer");
+    JButton button6 = new JButton(new ImageIcon("gui/resources/ViewOptions.png"));
+    button6.setActionCommand("View Option");
+    button6.setToolTipText("View Option");
     toolbar.add(button6);
-    button6.addActionListener(event -> onViewClick(Record.COMPUTER));
+    button6.addActionListener(event -> onViewClick(Record.OPTION));
+
+    JButton button7 = new JButton(new ImageIcon("gui/resources/ViewComputers.png"));
+    button7.setActionCommand("View Computer");
+    button7.setToolTipText("View Computer");
+    toolbar.add(button7);
+    button7.addActionListener(event -> onViewClick(Record.COMPUTER));
+
+    JButton button8 = new JButton(new ImageIcon("gui/resources/ViewOrders.png"));
+    button8.setActionCommand("View Order");
+    button8.setToolTipText("View Order");
+    toolbar.add(button8);
+    button8.addActionListener(event -> onViewClick(Record.ORDER));
 
     getContentPane().add(toolbar, BorderLayout.PAGE_START);
 
@@ -276,11 +289,43 @@ public class MainWin extends JFrame {
   }
 
   protected void onInsertOrderClick() {
+    try {
+      Customer cstmr = null;
 
-  }
+      if (store.customers().length == 0) {
+        onInsertCustomerClick();
+        if (store.customers().length == 0)
+          return;
+      }
+      if (store.customers().length == 1) {
+        Object cust[] = store.customers();
+        cstmr = (Customer) cust[0];
+      }
+      if (store.customers().length >= 2) {
+        JLabel name = new JLabel("<HTML><br/>Order for which Customer?</HTML>");
+        JComboBox<Object> cb = new JComboBox<>(store.customers());
+        int button = JOptionPane.showConfirmDialog(this, cb, "Pick a customer", JOptionPane.OK_CANCEL_OPTION);
+        if (button == JOptionPane.OK_OPTION) {
+          cstmr = (Customer) (cb.getSelectedItem());
+        }
+      }
 
-  protected void onViewOrderClick() {
-
+      if (cstmr != null) {
+        Order o = new Order(cstmr);
+        JComboBox<Object> cb = new JComboBox<>(store.computers());
+        int optionsAdded = 0;
+        while (true) {
+          int button2 = JOptionPane.showConfirmDialog(this, cb, "Pick a computer", JOptionPane.YES_NO_OPTION);
+          if (button2 != JOptionPane.YES_OPTION)
+            break;
+          o.addComputer((Computer) cb.getSelectedItem());
+          ++optionsAdded;
+        }
+        if (optionsAdded > 0)
+          store.add(o);
+      }
+    } catch (NullPointerException e) {
+    }
   }
 
   protected void onViewClick(Record record) {
@@ -300,9 +345,16 @@ public class MainWin extends JFrame {
         s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>");
       s.append("</ol></HTML>");
       display.setText(s.toString());
-    } else {
+    } else if (record == Record.OPTION) {
       values = store.options();
       StringBuilder s = new StringBuilder("<HTML><p><font size = +2> Options </font</br></br><ol>");
+      for (Object o : values)
+        s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>");
+      s.append("</ol></HTML>");
+      display.setText(s.toString());
+    } else {
+      values = store.orders();
+      StringBuilder s = new StringBuilder("<HTML><p><font size = +2> Orders </font</br></br><ol>");
       for (Object o : values)
         s.append("<li>" + o.toString().replaceAll("\n", "<br/>") + "</li>");
       s.append("</ol></HTML>");
@@ -358,6 +410,12 @@ public class MainWin extends JFrame {
       bw.write("" + values.length + '\n');
       for (int i = 0; i < values.length; i++)
         ((Computer) values[i]).save(bw);
+
+      values = store.orders();
+      bw.write("" + values.length + '\n');
+      for (int i = 0; i < values.length; i++)
+        ((Order) values[i]).save(bw);
+
     } catch (Exception e) {
       System.err.println("Failed to write: " + e);
       System.exit(-1);
@@ -412,6 +470,10 @@ public class MainWin extends JFrame {
         for (int i = 0; i < upperBound; i++) {
           store.add(new Computer(br));
         }
+
+        upperBound = Integer.parseInt(br.readLine());
+        for (int i = 0; i < upperBound; i++)
+          store.add(new Order(br));
       } catch (Exception e) {
       }
     }
