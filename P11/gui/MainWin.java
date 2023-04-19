@@ -394,32 +394,7 @@ public class MainWin extends JFrame {
 
   protected void onSaveClick() {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-      Object[] values;
-      values = store.options();
-      bw.write("" + values.length + '\n');
-      for (int i = 0; i < values.length; i++) {
-        ((Option) values[i]).save(bw);
-      }
-
-      values = store.customers();
-      bw.write("" + values.length + '\n');
-      for (int i = 0; i < values.length; i++)
-        ((Customer) values[i]).save(bw);
-
-      values = store.computers();
-      bw.write("" + values.length + '\n');
-      for (int i = 0; i < values.length; i++)
-        ((Computer) values[i]).save(bw);
-
-      values = store.orders();
-      bw.write("" + values.length + '\n');
-      for (int i = 0; i < values.length; i++)
-        ((Order) values[i]).save(bw);
-
-    } catch (Exception e) {
-      System.err.println("Failed to write: " + e);
-      System.exit(-1);
-    }
+      store.save(bw); 
     filename = new File("Elsa.txt");
   }
 

@@ -4,8 +4,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.util.Objects;
 
-public class Option {
+public class Option implements Saveable {
 	protected String name;
 	protected long cost;
 
@@ -26,6 +27,7 @@ public class Option {
 		return cost;
 	}
 
+	@Override
 	public void save(BufferedWriter bw) throws IOException {
 		bw.write(name + '\n');
 		bw.write("" + cost + '\n');
@@ -39,6 +41,11 @@ public class Option {
 			return false;
 		Option c = (Option) o;
 		return (name.equals(c.name)) && (cost == c.cost);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, cost);
 	}
 
 	@Override

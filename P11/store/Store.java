@@ -2,6 +2,9 @@ package store;
 
 import java.util.HashSet;
 import java.util.TreeSet;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.Set;
 
 public class Store {
     public Store(String name) {
@@ -12,6 +15,26 @@ public class Store {
         return this.name;
     }
 
+    public void save(BufferedWriter bw) throws IOException {
+
+        bw.write("" + options.size() + '\n');
+        save(bw, options);
+
+        bw.write("" + customers.size() + '\n');
+        save(bw, customers);
+
+        bw.write("" + computers.size() + '\n');
+        save(bw, computers);
+
+        bw.write("" + orders.size() + '\n');
+        save(bw, orders);
+    }
+
+    private <T extends Saveable<? super T>> void save(BufferedWriter bw, Set set) throws IOException {
+        for (var s : set) {
+            ((Saveable) s).save(bw);
+        }
+    }
     // ///////////////////////////////////////////////////////////
     // Customers
 

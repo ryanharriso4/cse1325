@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.util.Objects;
 
-public class Customer implements Comparable<Customer> {
+public class Customer implements Comparable<Customer>, Saveable {
 	private String name;
 	private String email;
 
@@ -23,6 +23,7 @@ public class Customer implements Comparable<Customer> {
 		name = br.readLine();
 	}
 
+	@Override
 	public void save(BufferedWriter bw) throws IOException {
 		bw.write(name + '\n');
 		bw.write(email + '\n');

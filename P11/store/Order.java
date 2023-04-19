@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.util.Objects;
 
-public class Order {
+public class Order implements Saveable {
 	private static long nextOrderNumber = 1;
 	private long orderNumber;
 	private Customer customer;
@@ -34,6 +34,7 @@ public class Order {
 		computers.add(computer);
 	}
 
+	@Override
 	public void save(BufferedWriter bw) throws IOException {
 		bw.write("" + nextOrderNumber + '\n');
 		bw.write("" + orderNumber + '\n');

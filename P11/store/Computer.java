@@ -3,14 +3,14 @@ package store;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.util.Objects;
 
-public class Computer {
+public class Computer implements Saveable {
 	private String name;
 	private String model;
-	private HashSet<Option> options = new HashSet<>();
+	private ArrayList<Option> options = new ArrayList<>();
 
 	public Computer(String name, String model) {
 		this.name = name;
@@ -39,6 +39,7 @@ public class Computer {
 
 	}
 
+	@Override
 	public void save(BufferedWriter bw) throws IOException {
 		bw.write(name + '\n');
 		bw.write(model + '\n');
