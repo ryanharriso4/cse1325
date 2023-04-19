@@ -3,13 +3,14 @@ package store;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.io.BufferedReader;
+import java.util.Objects;
 
 public class Computer {
 	private String name;
 	private String model;
-	private ArrayList<Option> options = new ArrayList<>();
+	private HashSet<Option> options = new HashSet<>();
 
 	public Computer(String name, String model) {
 		this.name = name;
@@ -55,6 +56,11 @@ public class Computer {
 			return false;
 		Computer c = (Computer) o;
 		return toString().equals(c.toString());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, model, options);
 	}
 
 	@Override

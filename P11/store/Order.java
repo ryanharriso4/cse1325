@@ -1,16 +1,17 @@
 package store;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.util.Objects;
 
 public class Order {
 	private static long nextOrderNumber = 1;
 	private long orderNumber;
 	private Customer customer;
-	private ArrayList<Computer> computers = new ArrayList<>();
+	private HashSet<Computer> computers = new HashSet<>();
 
 	public Order(Customer customer) {
 		this.customer = customer;
@@ -54,6 +55,11 @@ public class Order {
 		if (!(computers.equals(c.computers)))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nextOrderNumber, orderNumber, customer, computers);
 	}
 
 	public long cost() {
