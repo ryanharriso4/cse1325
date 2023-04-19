@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
 	private String name;
 	private String email;
 
@@ -41,6 +41,14 @@ public class Customer {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, email);
+	}
+
+	@Override
+	public int compareTo(Customer c) {
+		if (name.compareTo(c.name) == 0) {
+			return email.compareTo(c.email);
+		}
+		return name.compareTo(c.name);
 	}
 
 	@Override

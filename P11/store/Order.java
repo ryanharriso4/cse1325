@@ -1,7 +1,7 @@
 package store;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ public class Order {
 	private static long nextOrderNumber = 1;
 	private long orderNumber;
 	private Customer customer;
-	private HashSet<Computer> computers = new HashSet<>();
+	private ArrayList<Computer> computers = new ArrayList<>();
 
 	public Order(Customer customer) {
 		this.customer = customer;
