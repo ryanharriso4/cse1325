@@ -37,6 +37,49 @@ sys	0m0.252s
 
 YOUR Timing:
 
+Threads 1:
+
+real 1m45.779s
+user 1m43.041s
+sys  0m1.757s
+
+Threads 2:
+
+real 1m0.236s
+user 1m46.251s
+sys  0m6.158s
+
+threads 3:
+
+real 0m45.928s
+user 1m52.893s
+sys  0m8.156s
+
+threads 4:
+
+real 0m40.275s
+user 1m49.894s
+sys  0m14.385s
+
+threads 5: 
+
+real 0m36.740s
+user 1m52.575s
+sys  0m15.136s
+
+threads 6:
+
+real 0m41.923s
+user 1m58.971s
+sys  0m15.713s
+
+threads 7:
+
+real 0m40.030s
+user 1m57.258s
+sys  0m18.264s
+
+
 
 
 
