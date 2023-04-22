@@ -79,23 +79,46 @@ real 0m40.030s
 user 1m57.258s
 sys  0m18.264s
 
+threads 8:
 
+real 0m40.802s
+user 2m5.012s
+sys  0m20.781s
 
+threads 9:
 
+real 40.788s
+user 2m0.758s
+sys  0m20.923s
 
+threads 10:
+
+real 0m41.909s
+user 2m6.325s
+sys  0m22.002s
+
+threads 11:
+
+real 0m42.674s
+user 2m11.899s
+sys  0m20.134s
+
+threads 12:
+
+real 0m40.118s
+user 2m20.361s
+sys  0m7.546s
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
-
+Adding more threads speeds up the program to a certain point. My program started to run slower after 5 threads. I assume this is because we have to many processes going so the work flow becomes cluttered. 
 
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
 
-
-
-
+For the most part adding threads increases the system load however towards the end it was inconsistent. I assume this is a problem with my code because hypothetically the more threads you add the more strain should be put on the system. 
 
 BONUS
 =====
